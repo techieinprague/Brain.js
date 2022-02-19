@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Training Data Generator</title>
+    <style>
+        .container {
+            border: .1rem solid navy;
+            width: 20rem;
+            height: 20rem;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .cell {
+            height: 1.9rem;
+            width: 2rem;
+            border: 1px solid silver;
+            display: table-cell;
+            padding: 0px;
+            margin: 0px;
+
+        }
+
+        .row {
+            display: table-row;
+        }
+
+        span {
+            border-top: 1px solid navy;
+            background-color: #e0e0e0;
+            padding: 0;
+            margin-right: .25rem;
+        }
+
+        label {
+            padding-left: 1rem;
+            margin-left: -.5rem;
+            padding-right: 1rem;
+            margin-right: -.5rem;
+
+            /*border: 1px solid red;*/
+        }
+
+        button {
+            padding: .5rem;
+            border-radius: .25rem;
+            border: 1px solid silver;
+        }
+
+        button:hover {
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+
+<body onload="activate()">
+
+
+
+
+    <!--
+    <button onclick="activate()">
+        Activate
+    </button>-->
+    <button onclick="recordInput()" id="recordInputButton">
+        Record Input
+    </button>
+    <button onclick="clearDrawing()">
+        Clear Drawing
+    </button>
+    <button onclick="clearTrainingData()">
+        Clear Training Data
+    </button>
+    <button onclick="copyData()">
+        Copy Data
+    </button>
+
+    <!-- DRAWING GRID -->
+    <div id="ourContainer">
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+
+    </div>
+
+    <!-- RADIO BUTTONS -->
+    <div>
+        <div class="input-container">
+            <span>
+                <input type="radio" id="Zero" name="number" value="0" onclick="unfreeze()">
+                <label for="numberChoice0">0</label>
+            </span>
+
+            <span>
+                <input type="radio" id="One" name="number" value="1" onclick="unfreeze()">
+                <label for="numberChoice1">1</label>
+            </span>
+
+            <span>
+                <input type="radio" id="Two" name="number" value="2" onclick="unfreeze()">
+                <label for="numberChoice2">2</label>
+            </span>
+
+            <span>
+                <input type="radio" id="Three" name="number" value="3" onclick="unfreeze()">
+                <label for="numberChoice3">3</label>
+            </span>
+
+            <span>
+                <input type="radio" id="Four" name="number" value="4" onclick="unfreeze()">
+                <label for="numberChoice4">4</label>
+            </span>
+            <br />
+            <span>
+                <input type="radio" id="Five" name="number" value="5" onclick="unfreeze()">
+                <label for="numberChoice5">5</label>
+            </span>
+
+
+            <span>
+                <input type="radio" id="Six" name="number" value="6" onclick="unfreeze()">
+                <label for="numberChoice6">6</label>
+            </span>
+
+            <span>
+                <input type="radio" id="Seven" name="number" value="7" onclick="unfreeze()">
+                <label for="numberChoice7">7</label>
+            </span>
+
+            <span>
+                <input type="radio" id="Eight" name="number" value="8" onclick="unfreeze()">
+                <label for="numberChoice8">8</label>
+            </span>
+
+            <span>
+                <input type="radio" id="Nine" name="number" value="9" onclick="unfreeze()">
+                <label for="numberChoice9">9</label>
+            </span>
+
+        </div>
+        <div>
+
+            <textarea id="output" cols="100" rows="18"></textarea>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        let trainingDataEntries = [];
+
+        function copyData() {
+            let theBox = document.getElementById('output');
+            theBox.select();
+            document.execCommand('copy');
+        }
+
+        function unfreeze() {
+            document.getElementById('recordInputButton').disabled = false;
+        }
+
+        function freeze() {
+            document.getElementById('recordInputButton').disabled = true;
+        }
+
+        function activate() {
+
+            clearRadioButtons();
+            freeze();
+
+            var ourParent = document.getElementById('ourContainer');
+
+            ourParent.addEventListener('mouseover', e => {
+                if (e.target !== e.currentTarget) {
+                    var weAreHoldingDownLeftMouseKey = (e.buttons == 1 || e.buttons == 3);
+                    if (weAreHoldingDownLeftMouseKey) {
+                        e.target.style.backgroundColor = 'red';
+                    }
+                }
+            });
+        }
+
+        function recordInput() {
+            var boxes = Array.from(document.getElementsByClassName('cell'));
+            var outputArray = [];
+
+            boxes.forEach(box => {
+                var valueToAdd = box.style.backgroundColor == 'red' ? 1 : 0;
+                outputArray.push(valueToAdd);
+            });
+
+            const withOnesOrZeros = box => {
+                return box.style.backgroundColor == 'red' ? 1 : 0
+            }
+
+            const getOneOrZero = rb => {
+                return rb.checked ? '1' : '0'
+            }
+
+            const someOutput = rb => {
+                return `${rb.id}:${getOneOrZero(rb)}`
+            }
+
+            let radioButtons = Array.from(document.getElementsByName('number')).map(someOutput)
+
+            const recordingDisplay = `{ "input": ${JSON.stringify(boxes.map(withOnesOrZeros))}, "output": {${radioButtons}} }`
+
+            var outputBox = document.getElementById('output');
+
+            trainingDataEntries.push(recordingDisplay);
+
+            outputBox.innerHTML = trainingDataEntries.join(',\n');
+
+            freeze();
+            clearRadioButtons();
+            // original way we output vvv
+            //outputBox.innerHTML = recordingDisplay //JSON.stringify(outputArray);
+        }
+
+        function clearRadioButtons() {
+            var radioButtons = document.getElementsByName('number');
+            radioButtons.forEach(b => {
+                b.checked = false;
+            });
+        }
+
+        function clearDrawing() {
+            var boxes = Array.from(document.getElementsByClassName('cell'));
+            boxes.forEach(box => {
+                box.style.backgroundColor = 'transparent';
+            });
+        }
+
+        function clearTrainingData() {
+            var outputBox = document.getElementById('output');
+            outputBox.innerHTML = '';
+
+            trainingDataEntries = [];
+        }
+
+        function clearInput() {
+            var boxes = Array.from(document.getElementsByClassName('cell'));
+
+            boxes.forEach(box => {
+                box.style.backgroundColor = 'transparent';
+            });
+            var outputBox = document.getElementById('output');
+
+            outputBox.innerHTML = '';
+
+        }
+    </script>
+</body>
+
+</html>
